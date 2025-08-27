@@ -2,7 +2,7 @@
 
 > **⚠️ Beta Stage**: This package is currently in beta and may not be stable. Use with caution.
 
-A Svelte 5 preprocessor that enables visual editing by adding metadata to HTML elements. SvelteTrace creates a bridge between visual editors and your actual Svelte code, making it possible to build tools like visual website builders that directly modify your source files.
+A Svelte 5 preprocessor (unofficial) that enables visual editing by adding metadata to HTML elements. SvelteTrace creates a bridge between visual editors and your actual Svelte code, making it possible to build tools like visual website builders that directly modify your source files.
 
 ## 🚀 What is SvelteTrace?
 
@@ -37,20 +37,28 @@ npm install svelte-trace --save-dev
 
 ### Basic Setup (AI Generated right now, will update it in next commit)
 
-Add SvelteTrace to your `vite.config.js`:
+Add SvelteTrace to your `svelte.config.js`:
 
 ```javascript
-import { defineConfig } from "vite";
-import { sveltekit } from "@sveltejs/kit/vite";
+import adapter from "@sveltejs/adapter-auto";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { svelteTrace } from "svelte-trace";
 
-export default defineConfig({
-  plugins: [
-    sveltekit({
-      preprocess: [svelteTrace()],
-    }),
-  ],
-});
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  preprocess: [vitePreprocess(), svelteTrace()],
+
+  kit: {
+    // adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
+    // If your environment is not supported, or you settled on a specific environment, switch out the adapter.
+    // See https://svelte.dev/docs/kit/adapters for more information about adapters.
+    adapter: adapter(),
+  },
+
+  extensions: [".svelte"],
+};
+
+export default config;
 ```
 
 ### Svelte Config Setup

@@ -3,12 +3,17 @@
   "version": "0.1.0-beta",
   "description": "A Svelte 5 preprocessor that enables visual editing by adding metadata to HTML elements.",
   "main": "src/index.js",
+  "types": "index.d.ts",
   "type": "module",
   "exports": {
-    ".": "./src/index.js"
+    ".": {
+      "import": "./src/index.js",
+      "types": "./index.d.ts"
+    }
   },
   "files": [
-    "src"
+    "src",
+    "index.d.ts"
   ],
   "keywords": [
     "svelte",
