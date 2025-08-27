@@ -1,7 +1,7 @@
 {
   "name": "svelte-trace",
-  "version": "0.1.2-beta",
-  "description": "A Svelte 5 preprocessor that enables visual editing by adding metadata to HTML elements.",
+  "version": "0.1.4-beta",
+  "description": "svelte-trace is a Svelte 5 preprocessor that enables visual editing by adding metadata to HTML elements.",
   "main": "src/index.js",
   "types": "index.d.ts",
   "type": "module",

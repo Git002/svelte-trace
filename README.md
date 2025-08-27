@@ -1,12 +1,16 @@
-# SvelteTrace 🔍
+<p align="center">
+  <img src="https://beeimg.com/images/p32116343591.png" alt="Svelte Trace Logo" width="200" />
+</p>
+
+<h1 align="center">svelte-trace.js</h1>
 
 > **⚠️ Beta Stage**: This package is currently in beta and may not be stable. Use with caution.
 
-A Svelte 5 preprocessor (unofficial) that enables visual editing by adding metadata to HTML elements. SvelteTrace creates a bridge between visual editors and your actual Svelte code, making it possible to build tools like visual website builders that directly modify your source files.
+`svelte-trace` is a **Svelte 5 preprocessor** (unofficial) that enables visual editing by adding metadata to HTML elements. It creates a bridge between visual editors and your actual Svelte code, making it possible to build tools like visual website builders that directly modify your source files.
 
-## 🚀 What is SvelteTrace?
+## 🚀 What does svelte-trace do?
 
-SvelteTrace is a pre-processor that automatically adds `data-svelte-trace` attributes to all HTML elements in your Svelte components. These attributes contain metadata about the element's location in your source code, including:
+It automatically adds `data-svelte-trace` attributes to all HTML elements in your Svelte components. These attributes contain metadata about the element's location in your source code, including:
 
 - File path
 - Class attribute position (start/end offsets)
@@ -65,7 +69,7 @@ export default config;
 
 **Input:**
 
-```svelte
+```html
 <div class="bg-blue-500 text-white">
   <h1 class="text-2xl font-bold">Hello World</h1>
   <p>This is a paragraph</p>
@@ -74,7 +78,7 @@ export default config;
 
 **Output:**
 
-```svelte
+```html
 <div class="bg-blue-500 text-white" data-svelte-trace="loc[45,67]-f[src/App.svelte]">
   <h1 class="text-2xl font-bold" data-svelte-trace="loc[120,142]-f[src/App.svelte]">Hello World</h1>
   <p data-svelte-trace="loc[-1,-1]-f[src/App.svelte]">This is a paragraph</p>
@@ -144,21 +148,6 @@ console.log({ start, end, filepath });
 ## 🤝 Contributing
 
 We welcome contributions! This is beta software and needs testing across different Svelte applications.
-
-### Development Setup
-
-```bash
-git clone https://github.com/yourusername/svelte-trace.git
-cd svelte-trace
-npm install
-npm run build
-```
-
-### Testing
-
-```bash
-npm test
-```
 
 ## 📄 License
 
