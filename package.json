@@ -1,0 +1,51 @@
+{
+  "name": "svelte-trace",
+  "version": "0.1.0-beta",
+  "description": "A Svelte 5 preprocessor that enables visual editing by adding metadata to HTML elements.",
+  "main": "src/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "svelte",
+    "preprocessor",
+    "svelte5",
+    "sveltekit",
+    "visual-editor",
+    "tailwind",
+    "development-tools",
+    "visual-development"
+  ],
+  "author": "Abhay Salvi <i.am.abhaysalvi@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Git002/svelte-trace.git"
+  },
+  "homepage": "https://github.com/Git002/svelte-trace#readme",
+  "bugs": {
+    "url": "https://github.com/Git002/svelte-trace/issues"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "dependencies": {
+    "magic-string": "^0.30.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "test": "echo 'Tests coming soon'",
+    "prepublishOnly": "echo 'Running pre-publish checks...'"
+  }
+}

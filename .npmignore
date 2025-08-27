@@ -1,0 +1,36 @@
+# Development files
+.vscode/
+.idea/
+*.log
+.DS_Store
+
+# Git files
+.git/
+.gitignore
+
+# Testing and development
+test/
+tests/
+coverage/
+.nyc_output
+*.test.js
+*.spec.js
+
+# Documentation (keep README.md)
+docs/
+examples/
+
+# Build artifacts that shouldn't be published
+node_modules/
+dist/
+build/
+.svelte-kit/
+
+# Environment and config files
+.env*
+tsconfig.json
+vite.config.js
+svelte.config.js
+
+# Only include src/ directory and essential files
+# Everything else should be ignored unless explicitly needed
