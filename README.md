@@ -35,7 +35,7 @@ npm install svelte-trace --save-dev
 
 ## 🔧 Usage
 
-### Basic Setup (AI Generated right now, will update it in next commit)
+### Basic Setup
 
 Add SvelteTrace to your `svelte.config.js`:
 
@@ -59,18 +59,6 @@ const config = {
 };
 
 export default config;
-```
-
-### Svelte Config Setup
-
-Alternatively, add it to your `svelte.config.js`:
-
-```javascript
-import { svelteTrace } from "svelte-trace";
-
-export default {
-  preprocess: [svelteTrace()],
-};
 ```
 
 ## 📋 Example Output
