@@ -25,6 +25,12 @@
 
 `svelte-trace` is a Svelte 5 preprocessor that closes the gap between your rendered application and your source code. Stop hunting for components in your file tree—just `Ctrl + Click` in your browser, and **instantly land in the right file and line in VS Code!**
 
+<br/>
+<p align="center">
+    <img src="https://beeimg.com/images/v89261247551.gif" alt="Svelte Trace Demo" width="800" />
+    </a>
+</p>
+
 ## 🚀 Key Features
 
 - **🖱️ Click to Open in VS Code:** `Ctrl + Click` (or `Cmd + Click`) any element during development to open its source file directly in your editor, pinpointing the exact line and column.
