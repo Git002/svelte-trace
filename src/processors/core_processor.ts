@@ -23,7 +23,14 @@ export function processNodes(filepath: string, content: string, ast: AST.Root): 
    */
   const addDataAttribute = (node: AST.RegularElement): void => {
     if (node.type !== "RegularElement") return;
-    if (node.name === "script" || node.name === "style") return;
+    if (
+      node.name === "script" ||
+      node.name === "style" ||
+      node.name === "meta" ||
+      node.name === "link" ||
+      node.name === "title"
+    )
+      return;
 
     const classAttr = node.attributes.find(
       (attr): attr is AST.Attribute => attr.type === "Attribute" && attr.name === "class"
@@ -39,9 +46,21 @@ export function processNodes(filepath: string, content: string, ast: AST.Root): 
     const encodedBase64Data = Buffer.from(dataAttrValue, "utf8").toString("base64");
     const dataAttribute = `data-svelte-trace="${encodedBase64Data}"`;
 
-    // Always insert before the closing '>' to make it the last attribute
-    const tagEnd = content.indexOf(">", node.start);
-    magicString.appendLeft(tagEnd, ` ${dataAttribute}`);
+    // Find the correct insertion point based on whether it's self-closing or not
+    let insertionPoint: number;
+
+    // If there are attributes, insert after the last attribute
+    if (node.attributes.length > 0) {
+      const lastAttr = node.attributes[node.attributes.length - 1];
+      insertionPoint = lastAttr.end;
+    }
+    // If no attributes, insert after the tag name. Included +1 for '<'
+    else {
+      const tagNameEnd = node.start + 1 + node.name.length;
+      insertionPoint = tagNameEnd;
+    }
+
+    magicString.appendLeft(insertionPoint, ` ${dataAttribute}`);
   };
 
   /**
@@ -52,6 +71,7 @@ export function processNodes(filepath: string, content: string, ast: AST.Root): 
       addDataAttribute(node);
     }
 
+    // Handle different node structures
     if (Array.isArray(node.children)) {
       node.children.forEach(walk);
     }
