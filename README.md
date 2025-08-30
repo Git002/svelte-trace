@@ -23,7 +23,9 @@
 
 ---
 
-`svelte-trace` is a Svelte 5 preprocessor that closes the gap between your rendered application and your source code. Stop hunting for components in your file tree—just `Ctrl + Click` in your browser, and **instantly land in the right file and line in VS Code!**
+`svelte-trace` is a Svelte 5 preprocessor that closes the gap between your rendered application and your source code. Stop hunting for components in your file tree—just `Ctrl + Click` in your browser, and **instantly land in the right file and line in VS Code!** 
+
+Here's how the end result is gonna look like:
 
 <br/>
 <p align="center">
