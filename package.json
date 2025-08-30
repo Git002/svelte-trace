@@ -1,29 +1,32 @@
 {
   "name": "svelte-trace",
-  "version": "0.1.4-beta",
-  "description": "svelte-trace is a Svelte 5 preprocessor that enables visual editing by adding metadata to HTML elements.",
-  "main": "src/index.js",
-  "types": "index.d.ts",
+  "version": "0.1.5-beta",
+  "description": "svelte-trace is a Svelte 5 preprocessor that enables 'click-to-open VS Code' functionality by adding metadata to HTML elements.",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./src/index.js",
-      "types": "./index.d.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "files": [
-    "src",
-    "index.d.ts"
+    "dist"
   ],
   "keywords": [
+    "svelte-trace",
     "svelte",
     "preprocessor",
     "svelte5",
     "sveltekit",
     "visual-editor",
-    "tailwind",
+    "vscode",
+    "click-to-open",
     "development-tools",
-    "visual-development"
+    "devtools",
+    "developer-experience",
+    "tailwind"
   ],
   "author": "Abhay Salvi <i.am.abhaysalvi@gmail.com>",
   "license": "MIT",
@@ -49,8 +52,11 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "echo 'No build step required'",
+    "clean": "rm -rf dist",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "build:assets": "cp -r src/assets dist/",
+    "build": "npm run clean && npm run build:ts && npm run build:assets",
     "test": "echo 'Tests coming soon'",
-    "prepublishOnly": "echo 'Running pre-publish checks...'"
+    "prepublishOnly": "npm run build"
   }
 }

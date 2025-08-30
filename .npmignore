@@ -3,6 +3,10 @@
 .idea/
 *.log
 .DS_Store
+package-lock.json
+
+# Exclude src/ since we would be distributing dist/ in npm
+src/
 
 # Git files
 .git/
@@ -22,15 +26,12 @@ examples/
 
 # Build artifacts that shouldn't be published
 node_modules/
-dist/
 build/
 .svelte-kit/
 
 # Environment and config files
 .env*
 tsconfig.json
+tsconfig.build.json
 vite.config.js
 svelte.config.js
-
-# Only include src/ directory and essential files
-# Everything else should be ignored unless explicitly needed

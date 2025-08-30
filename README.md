@@ -1,35 +1,37 @@
 <p align="center">
-  <img src="https://beeimg.com/images/p32116343591.png" alt="Svelte Trace Logo" width="200" />
+    <a href="https://github.com/Git002/svelte-trace">
+    <img src="https://beeimg.com/images/p32116343591.png" alt="Svelte Trace Logo" width="250" />
+    </a>
 </p>
 
-<h1 align="center">svelte-trace.js</h1>
+<h1 align="center">Svelte Trace</h1>
 
-> **⚠️ Beta Stage**: This package is currently in beta and may not be stable. Use with caution.
+<p align="center">
+    <strong>
+        Instantly jump from your browser to your Svelte code in VS Code.
+    </strong>
+    <br />
+    Supercharge your development workflow by <code>Ctrl + Clicking</code> any element to open its source.
+</p>
 
-`svelte-trace` is a **Svelte 5 preprocessor** (unofficial) that enables visual editing by adding metadata to HTML elements. It creates a bridge between visual editors and your actual Svelte code, making it possible to build tools like visual website builders that directly modify your source files.
+<p align="center">
+<a href="https://www.npmjs.com/package/svelte-trace"><img src="https://img.shields.io/npm/v/svelte-trace.svg" alt="NPM Version"></a>
+<a href="https://github.com/Git002/svelte-trace/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/svelte-trace.svg" alt="License"></a>
+</p>
 
-## 🚀 What does svelte-trace do?
+> ⚠️ BETA Stage: This package is currently in BETA stage, and may evolve. Things might break, and your feedback is most welcomed. Happy Coding!
 
-It automatically adds `data-svelte-trace` attributes to all HTML elements in your Svelte components. These attributes contain metadata about the element's location in your source code, including:
+---
 
-- File path
-- Class attribute position (start/end offsets)
-- Line numbers and positioning data
+`svelte-trace` is a Svelte 5 preprocessor that closes the gap between your rendered application and your source code. Stop hunting for components in your file tree—just `Ctrl + Click` in your browser, and **instantly land in the right file and line in VS Code!**
 
-This enables the creation of visual editors that can:
+## 🚀 Key Features
 
-- Click on any element in the browser
-- Instantly know where it exists in your code
-- Make real-time changes to your Svelte files
-- Support Tailwind classes, inline styles, and more (in future)
+- **🖱️ Click to Open in VS Code:** `Ctrl + Click` (or `Cmd + Click`) any element during development to open its source file directly in your editor, pinpointing the exact line and column.
 
-## 🎯 Use Cases
+- **✨ Zero Configuration:** The client-side script that enables the click-to-open functionality is injected automatically. Just add the preprocessor to your config, and you're done.
 
-- **Visual Website Builders**: Build Webflow-like editors for Svelte
-- **Design Systems**: Allow designers to modify components visually
-- **Rapid Prototyping**: Speed up development with visual editing tools
-- **Client Editing**: Let clients make content/style changes without coding
-- **Developer Tools**: Create better debugging and development experiences
+- **🛠️ Extensible for Tooling:** Under the hood, it works by adding source code metadata to your HTML elements. This powerful foundation can be used to build advanced tools like visual editors like webflow/figma, but for svelte and edit code in realtime visually.
 
 ## 📦 Installation
 
@@ -37,117 +39,93 @@ This enables the creation of visual editors that can:
 npm install svelte-trace --save-dev
 ```
 
-## 🔧 Usage
+## 🔧 Getting Started in 3 Steps
 
-### Basic Setup
+### Step 1: Update your svelte.config.js
 
-Add SvelteTrace to your `svelte.config.js`:
+Add svelteTrace to your preprocessor array. It's that simple.
 
-```javascript
+```js
+// Basic svelte.config.js
 import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { svelteTrace } from "svelte-trace";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
+  // Add svelteTrace() to your preprocessors
   preprocess: [vitePreprocess(), svelteTrace()],
-
   kit: {
-    // adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-    // If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-    // See https://svelte.dev/docs/kit/adapters for more information about adapters.
     adapter: adapter(),
   },
-
-  extensions: [".svelte"],
 };
 
 export default config;
 ```
 
-## 📋 Example Output
+### Step 2: Run your dev server
 
-**Input:**
+```bash
+npm run dev
+```
+
+### Step 3: Ctrl + Click Anything!
+
+Open your application in the browser, hold down the `Ctrl` (or `Cmd` on Mac) key, and `click` on any element. It will instantly open in your VS Code editor.
+
+## ⚙️ Configuration
+
+The preprocessor is designed to work **out-of-the-box**. However, you can customize its behavior.
+
+```js
+// svelte.config.js
+import { svelteTrace } from "svelte-trace";
+
+const config = {
+  // The client-side "Open in VS Code" script is injected by default.
+  // Set to false if you only want the metadata for building custom tools.
+  preprocess: [svelteTrace({ openInCode: false })],
+  // ...
+};
+```
+
+## 🤔 How It Works
+
+`svelte-trace` parses your Svelte components during the build process and injects a `data-svelte-trace` attribute into every HTML element. This attribute contains the element's exact location in your source code.
+
+Input Svelte Code:
 
 ```html
-<div class="bg-blue-500 text-white">
-  <h1 class="text-2xl font-bold">Hello World</h1>
-  <p>This is a paragraph</p>
+<div>
+  <h1>Hello World</h1>
 </div>
 ```
 
-**Output:**
+Output HTML:
 
 ```html
-<div class="bg-blue-500 text-white" data-svelte-trace="loc[45,67]-f[src/App.svelte]">
-  <h1 class="text-2xl font-bold" data-svelte-trace="loc[120,142]-f[src/App.svelte]">Hello World</h1>
-  <p data-svelte-trace="loc[-1,-1]-f[src/App.svelte]">This is a paragraph</p>
+<div data-svelte-trace="dGFnWzQ6Ml0tbG9jWy0xOi0xXS1mW3NyYy9yb3V0ZXMvK3BhZ2Uuc3ZlbHRlXQ==">
+  <h1 data-svelte-trace="dGFnWzU6NF0tbG9jWy0xOi0xXS1mW3NyYy9yb3V0ZXMvK3BhZ2Uuc3ZlbHRlXQ==">
+    Hello World
+  </h1>
 </div>
 ```
 
-## 📊 Metadata Format
+The automatically injected client-side script listens for `Ctrl` + `Click` events, reads this attribute, and constructs a `vscode://` link to open the file instantly.
 
-The `data-svelte-trace` attribute contains:
+## 🎯 Advanced Use Case: Building Visual Editors
 
-- `loc[start,end]`: Character offsets of the class attribute in the file (-1,-1 if no class)
-- `f[filepath]`: Relative path to the source file
+While the primary feature is the "Open in VS Code" workflow, the metadata added by svelte-trace is powerful. It creates a bridge that allows you to build sophisticated tools, such as:
 
-**Future versions will use base64 encoding for more compact metadata.**
+- **Visual Website Builders:** Create Webflow-like editors for Svelte.
+- **Client-Facing Edit Tools:** Let clients make content or style changes safely.
+- **Enhanced DevTools:** Build custom debugging and development experiences.
 
-## 🛠️ Building Visual Editors
-
-With SvelteTrace, you can build editors that:
-
-1. **Parse metadata**: Extract file paths and positions from DOM elements
-2. **Locate source code**: Find exact locations in your Svelte files
-3. **Make changes**: Modify classes, styles, or content programmatically
-4. **Update files**: Write changes back to your source code in real-time
-
-Example of reading the metadata:
-
-```javascript
-// Get element metadata
-const element = document.querySelector("[data-svelte-trace]");
-const metadata = element.getAttribute("data-svelte-trace");
-
-// Parse: "loc[45,67]-f[src/App.svelte]"
-const [locPart, filePart] = metadata.split("-f");
-const [start, end] = locPart.match(/\d+/g).map(Number);
-const filepath = filePart.slice(1, -1); // Remove brackets
-
-console.log({ start, end, filepath });
-// { start: 45, end: 67, filepath: "src/App.svelte" }
-```
-
-## 🎨 Framework Compatibility
-
-- ✅ **Svelte 5**: Full support
-- ✅ **SvelteKit**: Full support
-- ✅ **Vite**: Full support
-- ✅ **Tailwind CSS**: Works perfectly
-- ⚠️ **Svelte 4**: Not tested (may work)
-
-## 🚧 Current Limitations (Beta)
-
-- Metadata is not yet base64 encoded
-- Limited testing with complex Svelte features
-- No configuration options yet
-- Performance not optimized for large applications
-- May conflict with SSR in some edge cases
-
-## 🗺️ Roadmap
-
-- [ ] Base64 encoding for metadata
-- [ ] Configuration options
-- [ ] Performance optimizations
-- [ ] Better error handling
-- [ ] Support for more Svelte features
-- [ ] Official visual editor
-- [ ] React/Vue preprocessors
+To build these tools, you can disable the default click handler with openInCode: false and implement your own logic to parse the data-svelte-trace attributes.
 
 ## 🤝 Contributing
 
-We welcome contributions! This is beta software and needs testing across different Svelte applications.
+We welcome contributions! This is beta software and needs testing across different Svelte applications. Please report issues, suggest features, or submit pull requests.
 
 ## 📄 License
 
