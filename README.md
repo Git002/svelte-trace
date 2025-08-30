@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/Git002/svelte-trace">
-    <img src="https://beeimg.com/images/p32116343591.png" alt="Svelte Trace Logo" width="250" />
+    <img src="https://beeimg.com/images/p32116343591.png" alt="Svelte Trace Logo" width="225" />
     </a>
 </p>
 
