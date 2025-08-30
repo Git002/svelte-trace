@@ -19,7 +19,7 @@
 <a href="https://github.com/Git002/svelte-trace/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/svelte-trace.svg" alt="License"></a>
 </p>
 
-> ⚠️ BETA Stage: This package is currently in BETA stage, and may evolve. Things might break, and your feedback is most welcomed. Happy Coding!
+> ⚠️ BETA Stage: This package is currently in BETA stage, and will evolve. Things might break, and your feedback is most welcomed. Happy Coding!
 
 ---
 
