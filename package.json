@@ -1,6 +1,6 @@
 {
   "name": "svelte-trace",
-  "version": "0.1.5-beta.2",
+  "version": "0.1.6-beta",
   "description": "svelte-trace is a Svelte 5 preprocessor that enables 'click-to-open VS Code' functionality by adding metadata to HTML elements.",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,10 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE",
+    "package.json"
   ],
   "keywords": [
     "svelte-trace",
@@ -55,7 +58,8 @@
     "clean": "rm -rf dist",
     "build:ts": "tsc -p tsconfig.build.json",
     "build:assets": "cp -r src/assets dist/",
-    "build": "npm run clean && npm run build:ts && npm run build:assets",
+    "build:docs": "cp README.md LICENSE package.json dist/",
+    "build": "npm run clean && npm run build:ts && npm run build:assets && npm run build:docs",
     "test": "echo 'Tests coming soon'",
     "prepublishOnly": "npm run build"
   }
