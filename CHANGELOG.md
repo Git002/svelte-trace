@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Work towards making it stable.
 - Add the related file name too below the colored overlay.
 
-## [0.1.6-beta] - 31st Aug 2025
+## [0.1.6-beta | 0.1.6-beta.2] - 31st Aug 2025
 
 ### Added
 
