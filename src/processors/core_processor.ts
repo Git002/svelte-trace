@@ -19,7 +19,7 @@ export function processNodes(filepath: string, content: string, ast: AST.Root): 
   const magicString = new MagicString(content);
 
   /**
-   * Adds unique data attribute to an HTML element
+   * Adds a unique `data` attribute to an HTML element
    */
   const addDataAttribute = (node: AST.RegularElement): void => {
     if (node.type !== "RegularElement") return;

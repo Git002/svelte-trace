@@ -16,9 +16,9 @@ interface MarkupParams {
 /**
  * A preprocessor for Svelte files for tracking element's metadata. This function returns an object containing the preprocessor name, and a markup function.
  *
- * Set `openInCode` parameter to `false` if you don't want "Open in VSCode" functionality.
+ * Set `openInCode` parameter to `true` if you want "Open in VSCode".
  */
-export function svelteTrace(openInCode: boolean = true) {
+export function svelteTrace(openInCode: boolean = false) {
   return {
     name: "svelte-trace",
     markup: ({ content, filename }: MarkupParams): PreprocessorResult | undefined => {
@@ -28,9 +28,9 @@ export function svelteTrace(openInCode: boolean = true) {
         let ast: AST.Root = parse(content, { modern: true });
         let processedContent = content;
 
-        // If file is "src/routes/+layout.svelte"
+        // If the file is "src/routes/+layout.svelte"
         if (isRootLayoutFile(filename)) {
-          // If enabled, we have to inject the script to allow "openInCode" to work
+          // If openInCode is enabled, we inject a script to allow this feature
           if (openInCode) {
             processedContent = injectIntoHead(processedContent, ast);
           }
