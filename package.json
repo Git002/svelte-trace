@@ -1,6 +1,6 @@
 {
   "name": "svelte-trace",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "svelte-trace is a Svelte 5 preprocessor that enables 'click-to-open VS Code' functionality by adding metadata to HTML elements.",
   "type": "module",
   "main": "./dist/index.js",

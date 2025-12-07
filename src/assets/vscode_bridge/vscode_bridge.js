@@ -130,8 +130,22 @@ document.addEventListener("DOMContentLoaded", function () {
     true
   );
 
+  // Detect when mouse leaves the browser window entirely
+  document.addEventListener("mouseout", (event) => {
+    // Check if mouse actually left the document
+    if (event.relatedTarget === null) {
+      clearCurrentOverlay();
+    }
+  });
+
   document.addEventListener("keydown", handleKeyDown);
   document.addEventListener("keyup", handleKeyUp);
   document.addEventListener("click", handleClick);
-  window.addEventListener("blur", handleKeyUp);
+
+  // Reset state when window loses focus (user switches to another app)
+  window.addEventListener("blur", () => {
+    isCtrlPressed = false;
+    document.body.style.cursor = "auto";
+    clearCurrentOverlay();
+  });
 });

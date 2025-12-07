@@ -4,22 +4,24 @@ import { join } from "path";
 import { getVSCodeBridgeAssetsPath } from "../utils/path_utility.js";
 import type { AST } from "svelte/compiler";
 
+const INJECTION_MARKER = "<!-- svelte-trace-injection -->";
+
 /**
- * Generates head injection content by reading files from assets directory
+ * Reads and wraps asset files (CSS/JS) for injection into the document head.
  */
 function generateHeadContent(): string {
   const assetsPath = getVSCodeBridgeAssetsPath();
   const injectionContent: string[] = [];
 
   try {
-    // Inject CSS file if it exists
+    // Inject CSS for styling the open-in-code feature
     const cssPath = join(assetsPath, "vscode_bridge.css");
     if (existsSync(cssPath)) {
       const cssContent = readFileSync(cssPath, "utf-8");
       injectionContent.push(`  <style data-svelte-trace-open-in-code>\n${cssContent}\n  </style>`);
     }
 
-    // Inject JS file as inline script
+    // Inject JavaScript for the open-in-code functionality
     const jsPath = join(assetsPath, "vscode_bridge.js");
     if (existsSync(jsPath)) {
       const jsContent = readFileSync(jsPath, "utf-8");
@@ -34,7 +36,7 @@ function generateHeadContent(): string {
 }
 
 /**
- * Finds svelte:head element in AST
+ * Finds the <svelte:head> element in the AST, if it exists.
  */
 function findSvelteHead(ast: AST.Root): AST.SvelteHead | null {
   let svelteHeadNode: AST.SvelteHead | null = null;
@@ -45,15 +47,10 @@ function findSvelteHead(ast: AST.Root): AST.SvelteHead | null {
       return;
     }
 
-    if (Array.isArray(node.children)) {
-      node.children.forEach(walk);
-    }
-    if (node.fragment) {
-      walk(node.fragment);
-    }
-    if (Array.isArray(node.nodes)) {
-      node.nodes.forEach(walk);
-    }
+    // Recursively search all child nodes
+    if (Array.isArray(node.children)) node.children.forEach(walk);
+    if (node.fragment) walk(node.fragment);
+    if (Array.isArray(node.nodes)) node.nodes.forEach(walk);
   };
 
   if (ast.fragment?.nodes) {
@@ -64,31 +61,31 @@ function findSvelteHead(ast: AST.Root): AST.SvelteHead | null {
 }
 
 /**
- * Injects content into svelte:head or creates one if it doesn't exist
+ * Injects content into <svelte:head> or creates one if it doesn't exist.
+ * Prevents duplicate injections using a marker comment.
  */
 export function injectIntoHead(content: string, ast: AST.Root): string {
-  const magicString = new MagicString(content);
   const headContent = generateHeadContent();
 
-  if (!headContent) return content;
+  // Skip injection if no content to inject or already injected
+  if (!headContent || content.includes(INJECTION_MARKER)) {
+    return content;
+  }
 
+  const magicString = new MagicString(content);
   const svelteHead = findSvelteHead(ast);
-  const injectionMarker = "<!-- svelte-trace-injection -->";
 
-  // Prevent duplicate injection
-  if (content.includes(injectionMarker)) return content;
-
-  // Inject before </svelte:head>
   if (svelteHead) {
+    // Inject into existing <svelte:head> tag
     const closingTagStart = content.indexOf("</svelte:head>", svelteHead.start);
     if (closingTagStart !== -1) {
-      magicString.appendLeft(closingTagStart, `${injectionMarker}\n${headContent}\n`);
+      magicString.appendLeft(closingTagStart, `${INJECTION_MARKER}\n${headContent}\n`);
     }
-  }
-  // Create new <svelte:head> block
-  else {
-    const headSection = `<svelte:head>\n${injectionMarker}\n${headContent}\n</svelte:head>\n\n`;
+  } else {
+    // Create a new <svelte:head> block at the top of the component
+    const headSection = `<svelte:head>\n${INJECTION_MARKER}\n${headContent}\n</svelte:head>\n\n`;
 
+    // Insert after any <script> or <style> blocks
     let insertionPoint = 0;
     if (ast.fragment?.nodes) {
       for (const node of ast.fragment.nodes) {
