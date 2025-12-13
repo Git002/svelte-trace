@@ -14,9 +14,9 @@ interface MarkupParams {
 }
 
 /**
- * A preprocessor for Svelte files for tracking element's metadata. This function returns an object containing the preprocessor name, and a markup function.
+ * Svelte preprocessor that injects metadata into HTML elements for tracing.
  *
- * Set `openInCode` parameter to `true` if you want "Open in VSCode".
+ * Set `openInCode` to `true` to enable "Open in VSCode" feature.
  */
 export function svelteTrace(openInCode: boolean = false) {
   return {
@@ -25,25 +25,15 @@ export function svelteTrace(openInCode: boolean = false) {
       if (!isValidFilePath(filename)) return;
 
       try {
-        let ast: AST.Root = parse(content, { modern: true });
         let processedContent = content;
+        let ast: AST.Root = parse(content, { modern: true });
 
-        // If the file is "src/routes/+layout.svelte"
-        if (isRootLayoutFile(filename)) {
-          // If openInCode is enabled, we inject a script to allow this feature
-          if (openInCode) {
-            processedContent = injectIntoHead(processedContent, ast);
-          }
+        // Process nodes FIRST (before head injection) so metadata uses original line numbers
+        processedContent = processNodes(filename, processedContent, ast);
 
-          // Re-parse content in case of head injection
-          if (processedContent !== content) {
-            const newAst: AST.Root = parse(processedContent, { modern: true });
-            processedContent = processNodes(filename, processedContent, newAst);
-          } else {
-            processedContent = processNodes(filename, processedContent, ast);
-          }
-        } else {
-          processedContent = processNodes(filename, processedContent, ast);
+        if (isRootLayoutFile(filename) && openInCode) {
+          ast = parse(processedContent, { modern: true });
+          processedContent = injectIntoHead(processedContent, ast);
         }
 
         return { code: processedContent };

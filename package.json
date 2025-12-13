@@ -12,10 +12,7 @@
     }
   },
   "files": [
-    "dist",
-    "README.md",
-    "LICENSE",
-    "package.json"
+    "dist"
   ],
   "keywords": [
     "svelte-trace",
@@ -58,8 +55,7 @@
     "clean": "rm -rf dist",
     "build:ts": "tsc -p tsconfig.build.json",
     "build:assets": "cp -r src/assets dist/",
-    "build:docs": "cp README.md LICENSE package.json dist/",
-    "build": "npm run clean && npm run build:ts && npm run build:assets && npm run build:docs",
+    "build": "npm run clean && npm run build:ts && npm run build:assets",
     "test": "echo 'Tests coming soon'",
     "prepublishOnly": "npm run build"
   }

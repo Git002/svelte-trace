@@ -14,7 +14,8 @@ type ExtendedNode =
 
 /**
  * Encodes element metadata into a base64 string for the data-svelte-trace attribute.
- * Format: tag[line:column]-class[start:end]-f[filepath]
+ *
+ * Format: `tag[line:column]-class[start:end]-f[filepath]`
  */
 function encodeMetadata(
   tagLine: number,

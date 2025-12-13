@@ -87,6 +87,7 @@ export function injectIntoHead(content: string, ast: AST.Root): string {
 
     // Insert after any <script> or <style> blocks
     let insertionPoint = 0;
+
     if (ast.fragment?.nodes) {
       for (const node of ast.fragment.nodes) {
         if (

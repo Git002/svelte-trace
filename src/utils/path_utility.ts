@@ -18,7 +18,7 @@ export function isValidFilePath(filePath: string): boolean {
  * Used to conditionally inject VS Code bridge assets.
  *
  * @param filePath - The file path to check
- * @returns true if this is src/routes/+layout.svelte
+ * @returns true if this is `src/routes/+layout.svelte`
  */
 export function isRootLayoutFile(filePath: string): boolean {
   const normalizedPath = filePath.replace(/\\/g, "/");
