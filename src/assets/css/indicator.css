@@ -1,0 +1,23 @@
+/* Indicator overlays */
+.svelte-trace-indicator {
+    position: fixed;
+    background: transparent;
+    box-sizing: border-box;
+    z-index: 10000;
+    pointer-events: none;
+    display: none;
+}
+.svelte-trace-indicator-click {
+    border: 2px solid transparent;
+    border-image: linear-gradient(135deg, #00b16d, #cbce14, #f746a6) 1;
+}
+.svelte-trace-indicator-hover {
+    border: 2px solid rgb(8, 124, 226);
+    border-style: dotted;
+}
+
+/* Pointer cursor when indicator script is active */
+html.svelte-trace-indicator-cursor,
+html.svelte-trace-indicator-cursor * {
+    cursor: default !important;
+}

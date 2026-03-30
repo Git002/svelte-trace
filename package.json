@@ -1,62 +1,62 @@
 {
-  "name": "svelte-trace",
-  "version": "0.1.9",
-  "description": "svelte-trace is a Svelte 5 preprocessor that enables 'click-to-open VS Code' functionality by adding metadata to HTML elements.",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+    "name": "svelte-trace",
+    "version": "0.2",
+    "description": "A Svelte 5 preprocessor that injects data attributes into DOM elements for reliable tooling and debugging.",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "keywords": [
+        "svelte-trace",
+        "svelte",
+        "preprocessor",
+        "svelte5",
+        "sveltekit",
+        "visual-editor",
+        "vscode",
+        "click-to-open",
+        "development-tools",
+        "devtools",
+        "developer-experience",
+        "tailwind"
+    ],
+    "author": "Abhay Salvi <i.am.abhaysalvi@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Git002/svelte-trace.git"
+    },
+    "homepage": "https://github.com/Git002/svelte-trace#readme",
+    "bugs": {
+        "url": "https://github.com/Git002/svelte-trace/issues"
+    },
+    "peerDependencies": {
+        "svelte": "^5.0.0"
+    },
+    "dependencies": {
+        "magic-string": "^0.30.5"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "typescript": "^5.0.0"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "scripts": {
+        "clean": "rm -rf dist",
+        "build:ts": "tsc -p tsconfig.build.json",
+        "build:assets": "cp -r src/assets dist/",
+        "build": "npm run clean && npm run build:ts && npm run build:assets",
+        "test": "echo 'Tests coming soon'",
+        "prepublishOnly": "npm run build"
     }
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "svelte-trace",
-    "svelte",
-    "preprocessor",
-    "svelte5",
-    "sveltekit",
-    "visual-editor",
-    "vscode",
-    "click-to-open",
-    "development-tools",
-    "devtools",
-    "developer-experience",
-    "tailwind"
-  ],
-  "author": "Abhay Salvi <i.am.abhaysalvi@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Git002/svelte-trace.git"
-  },
-  "homepage": "https://github.com/Git002/svelte-trace#readme",
-  "bugs": {
-    "url": "https://github.com/Git002/svelte-trace/issues"
-  },
-  "peerDependencies": {
-    "svelte": "^5.0.0"
-  },
-  "dependencies": {
-    "magic-string": "^0.30.5"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
-  },
-  "engines": {
-    "node": ">=16.0.0"
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "build:ts": "tsc -p tsconfig.build.json",
-    "build:assets": "cp -r src/assets dist/",
-    "build": "npm run clean && npm run build:ts && npm run build:assets",
-    "test": "echo 'Tests coming soon'",
-    "prepublishOnly": "npm run build"
-  }
 }

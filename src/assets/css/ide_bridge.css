@@ -1,0 +1,11 @@
+/* IDE Bridge - overlay for open-in-editor (VSCode, Cursor, etc.) */
+#svelte-trace-ide-bridge-overlay {
+    position: absolute;
+    background: rgba(186, 85, 211, 0.15);
+    border: 2px solid rgba(186, 85, 211, 0.7);
+    border-radius: 4px;
+    z-index: 9999;
+    pointer-events: none;
+    display: none;
+    box-sizing: border-box;
+}

@@ -9,20 +9,19 @@ import { dirname, join } from "path";
  * @returns true if the file should be processed
  */
 export function isValidFilePath(filePath: string): boolean {
-  const invalidFolders = ["node_modules", ".svelte-kit"];
-  return !invalidFolders.some((folderName) => filePath.includes(folderName));
+    const invalidFolders = ["node_modules", ".svelte-kit"];
+    return !invalidFolders.some((folderName) => filePath.includes(folderName));
 }
 
 /**
- * Checks if the file is the root layout component.
- * Used to conditionally inject VS Code bridge assets.
+ * Checks if the file is the root layout component: `src/routes/+layout.svelte`
  *
  * @param filePath - The file path to check
  * @returns true if this is `src/routes/+layout.svelte`
  */
 export function isRootLayoutFile(filePath: string): boolean {
-  const normalizedPath = filePath.replace(/\\/g, "/");
-  return normalizedPath.endsWith("/src/routes/+layout.svelte");
+    const normalizedPath = filePath.replace(/\\/g, "/");
+    return normalizedPath.endsWith("/src/routes/+layout.svelte");
 }
 
 /**
@@ -34,11 +33,11 @@ export function isRootLayoutFile(filePath: string): boolean {
  * @returns Object with line (1-indexed) and column (1-indexed) numbers
  */
 export function getLineColumn(content: string, offset: number): { line: number; column: number } {
-  const lines = content.substring(0, offset).split("\n");
-  return {
-    line: lines.length,
-    column: lines[lines.length - 1].length + 1,
-  };
+    const lines = content.substring(0, offset).split("\n");
+    return {
+        line: lines.length,
+        column: lines[lines.length - 1].length + 1,
+    };
 }
 
 /**
@@ -48,17 +47,25 @@ export function getLineColumn(content: string, offset: number): { line: number; 
  * @returns Absolute path to the package root
  */
 export function getPackageRoot(): string {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  return dirname(__dirname); // Go up: utils/ → src/ → root
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    return dirname(__dirname); // Go up: utils/ → src/ → root
 }
 
 /**
- * Gets the path to the VS Code bridge assets directory.
- * These assets are injected into the root layout for "Open in Code" functionality.
+ * Gets the path to the assets JS directory (bridge and indicator scripts).
  *
- * @returns Absolute path to the vscode_bridge assets folder
+ * @returns Absolute path to the assets/js folder
  */
-export function getVSCodeBridgeAssetsPath(): string {
-  return join(getPackageRoot(), "assets", "vscode_bridge");
+export function getAssetsJsPath(): string {
+    return join(getPackageRoot(), "assets", "js");
+}
+
+/**
+ * Gets the path to the assets CSS directory (bridge and indicator styles).
+ *
+ * @returns Absolute path to the assets/css folder
+ */
+export function getAssetsCssPath(): string {
+    return join(getPackageRoot(), "assets", "css");
 }
