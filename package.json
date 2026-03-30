@@ -1,6 +1,6 @@
 {
     "name": "svelte-trace",
-    "version": "0.2",
+    "version": "0.2.0",
     "description": "A Svelte 5 preprocessor that injects data attributes into DOM elements for reliable tooling and debugging.",
     "type": "module",
     "main": "./dist/index.js",
